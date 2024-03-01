@@ -36,7 +36,7 @@ function OrderScreen({ match, history }) {
     const addPayPalScript = () => {
         const script = document.createElement('script')
         script.type = 'text/javascript'
-        script.src = 'https://www.paypal.com/sdk/js?client-id=AeDXja18CkwFUkL-HQPySbzZsiTrN52cG13mf9Yz7KiV2vNnGfTDP0wDEN9sGlhZHrbb_USawcJzVDgn'
+        script.src = 'https://www.paypal.com/sdk/js?client-id=AQNwC_qml8IacXmSQ3bev9sHFpb5hZwCE3SAfngZ-S6iVuLa-SnYBOw0JYX7SRg3SQYEef2C5YqRwfum'
         script.async = true
         script.onload = () => {
             setSdkReady(true)

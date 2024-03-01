@@ -7,16 +7,23 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { listProductDetails, createProductReview } from '../actions/productActions'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
+import Product from "../components/Product";
+
+
 
 function ProductScreen({ match, history }) {
     const [qty, setQty] = useState(1)
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
 
+    const [recommendProduct, setRecommendProduct] = useState([])
+
     const dispatch = useDispatch()
 
     const productDetails = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetails
+    
+    console.log(product.recommend)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -28,9 +35,16 @@ function ProductScreen({ match, history }) {
         success: successProductReview,
     } = productReviewCreate
 
+    useEffect(() =>{
+        setRecommendProduct(product.recommend)
+        console.log("recoomendProduct")
+        console.log(recommendProduct)
+    }, [product.recommend] )
+
     useEffect(() => {
         if (successProductReview) {
             setRating(0)
+            
             setComment('')
             dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
         }
@@ -215,7 +229,33 @@ function ProductScreen({ match, history }) {
                                     </ListGroup>
                                 </Col>
                             </Row>
+                            <Row>
+                                        
+                            </Row>
+                           <div>
+
+                                    <h1>Recommended Products</h1>
+                                    {loading ? (
+                                    <Loader />
+                                    ) : error ? (
+                                    <Message variant="danger">{error}</Message>
+                                    ) : (
+                                    <div >
+                                        <Row>
+                                        {recommendProduct && recommendProduct.map((product) => (
+                                            <Col style={{display: 'inline-block'}} key={product._id} sm={12} md={6} lg={4} xl={3}>
+                                            <Product product={product} />
+                                            </Col>
+                                        ))}
+                                        </Row>
+                                        
+                                    </div>
+                        )}
+                                </div>
+                                 
+                            
                         </div>
+                        
                     )
 
             }

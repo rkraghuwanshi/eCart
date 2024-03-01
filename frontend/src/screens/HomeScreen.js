@@ -13,6 +13,8 @@ function HomeScreen({ history }) {
     const dispatch = useDispatch()
     const productList = useSelector(state => state.productList)
     const { error, loading, products, page, pages } = productList
+    // products[products.length] = products[0];
+    // products[products.length] = products[1];
 
     let keyword = history.location.search
 
@@ -20,7 +22,7 @@ function HomeScreen({ history }) {
         dispatch(listProducts(keyword))
 
     }, [dispatch, keyword])
-
+    console.log("********************",products)
     return (
         <div>
             {!keyword && <ProductCarousel />}
